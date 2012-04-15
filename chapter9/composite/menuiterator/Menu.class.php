@@ -1,5 +1,6 @@
 <?php
 require_once 'MenuComponent.class.php';
+require_once 'CompositeIterator.class.php';
 
 class Menu extends MenuComponent {
     private $menuComponents = array();
@@ -34,6 +35,12 @@ class Menu extends MenuComponent {
 
     public function getDescription() {
         return $this->description;
+    }
+
+    public function createIterator() {
+        $arrayobject = new ArrayObject($this->menuComponents);
+        $iterator = $arrayobject->getIterator();
+        return new CompositeIterator($iterator);
     }
 
     public function printv() {

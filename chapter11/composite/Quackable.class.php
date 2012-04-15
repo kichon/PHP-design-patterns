@@ -57,57 +57,27 @@ class QuackCounter implements Quackable {
 }
 
 class Flock implements Quackable {
-    protected $quackers = array();
+    protected $quackers;
 
-    public function add(Quackable $quaacker) {
-        $this->quackers[] = $quaacker;
+    public function __construct() {
+        $this->quackers = new ArrayObject();
+    }
+
+    public function add(Quackable $quacker) {
+        $this->quackers->append($quacker);
     }
 
     public function quack() {
-        $iterator = new MyIterator($this->quackers);
-        while ($iterator.next()) {
+        $iterator = $this->quackers->getIterator();
+
+        while ($iterator->valid()) {
             $quacker = $iterator->current();
             $quacker->quack();
+            $iterator->next();
         }
     }
 
     public function __toString() {
-        return "Flock of Quackers";
-    }
-}
-
-class MyIterator implements Iterator {
-    private $array = array();
-    private $size = 0;
-    private $pos = 0;
-
-    public function __construct($array) {
-        if (! is_array($array)) {
-            $this->array = array($array);
-        }
-
-        $this->array = $array;
-        $this->size = count($array);
-        $this->pos = 0;
-    }
-
-    public function current() {
-        return $this->array[$this->pos];
-    }
-
-    public function key() {
-        return $this->pos;
-    }
-
-    public function next() {
-        return $this->pos++;
-    }
-
-    public function rewind() {
-        return $this->pos = 0;
-    }
-
-    public function valid() {
-        return isset($this->array[$this->pos]);
+        return "Floack Of Quackers";
     }
 }

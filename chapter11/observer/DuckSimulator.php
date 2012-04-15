@@ -1,17 +1,18 @@
 <?php
-require_once 'Quackable.class.php';
+require_once 'QuackObservable.class.php';
 require_once 'Goose.class.php';
 require_once 'GooseAdapter.class.php';
 require_once 'AbstractDuckFactory.class.php';
+require_once 'Observer.class.php';
 
 class DuckSimulator {
-
     public function simulate(AbstractDuckFactory $duckFactory) {
-        //$mallardDuck = $duckFactory->createMallardDuck();
         $redheadDuck = $duckFactory->createRedheadDuck();
         $duckCall = $duckFactory->createDuckCall();
         $rubberDuck = $duckFactory->createRubberDuck();
         $gooseDuck = new GooseAdapter(new Goose());
+
+        echo "\nDuck Simulator: With Goose Adapter", PHP_EOL;
 
         $flockOfDucks = new Flock();
 
@@ -35,7 +36,6 @@ class DuckSimulator {
         $flockOfDucks->add($flockOfMallards);
 
         echo "\nDuck Simulator: With Observer", PHP_EOL;
-
         $quackologist = new Quackologist();
         $flockOfDucks->registerObserver($quackologist);
 

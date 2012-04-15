@@ -23,6 +23,7 @@ abstract class MenuComponent {
     public function isVegetarian() {
         throw new Exception();
     }
+    abstract public function createIterator();
     public function printv() {
         throw new Exception();
     }
